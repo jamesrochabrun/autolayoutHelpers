@@ -36,6 +36,6 @@ class ViewController: UIViewController {
 
     @IBAction func sliderDidChange(_ sender: UISlider) {
         animator.fractionComplete = CGFloat(slider.value)
-    }    
+    }
 }
 
