@@ -45,27 +45,26 @@ extension AutoLayout where Self == UIView {
         
     }
     
-    func fillSuperview(padding: UIEdgeInsets = .zero) {
+    func fillSuperview(inSafeAreas: Bool = false, padding: UIEdgeInsets = .zero) {
         
         translatesAutoresizingMaskIntoConstraints = false
-        if let superviewTopAnchor = superview?.topAnchor {
-            topAnchor.constraint(equalTo: superviewTopAnchor, constant: padding.top).isActive = true
-        }
+        guard let superView = self.superview else { return }
         
-        if let superviewBottomAnchor = superview?.bottomAnchor {
-            bottomAnchor.constraint(equalTo: superviewBottomAnchor, constant: -padding.bottom).isActive = true
-        }
-        
-        if let superviewLeadingAnchor = superview?.leadingAnchor {
-            leadingAnchor.constraint(equalTo: superviewLeadingAnchor, constant: padding.left).isActive = true
-        }
-        
-        if let superviewTrailingAnchor = superview?.trailingAnchor {
-            trailingAnchor.constraint(equalTo: superviewTrailingAnchor, constant: -padding.right).isActive = true
-        }
+        let topAnchor = inSafeAreas ? superView.safeAreaLayoutGuide.topAnchor : superView.topAnchor
+        self.topAnchor.constraint(equalTo: topAnchor, constant: padding.top).isActive = true
+
+        let leadingAnchor = inSafeAreas ? superView.safeAreaLayoutGuide.leadingAnchor : superView.leadingAnchor
+        self.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding.left).isActive = true
+
+        let trailingAnchor = inSafeAreas ? superView.safeAreaLayoutGuide.trailingAnchor : superView.trailingAnchor
+        self.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding.right).isActive = true
+
+        let bottomAnchor = inSafeAreas ? superView.safeAreaLayoutGuide.bottomAnchor : superView.bottomAnchor
+        self.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding.bottom).isActive = true
     }
     
     func centerInSuperview(size: CGSize) {
+        
         translatesAutoresizingMaskIntoConstraints = false
         if let superviewCenterXAnchor = superview?.centerXAnchor {
             centerXAnchor.constraint(equalTo: superviewCenterXAnchor).isActive = true
