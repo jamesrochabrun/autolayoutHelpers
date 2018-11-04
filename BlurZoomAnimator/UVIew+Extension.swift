@@ -46,6 +46,7 @@ extension AutoLayout where Self == UIView {
     }
     
     func fillSuperview(padding: UIEdgeInsets = .zero) {
+        
         translatesAutoresizingMaskIntoConstraints = false
         if let superviewTopAnchor = superview?.topAnchor {
             topAnchor.constraint(equalTo: superviewTopAnchor, constant: padding.top).isActive = true
@@ -80,6 +81,7 @@ extension AutoLayout where Self == UIView {
     
     func anchorSize(to view: UIView, multiplier: CGFloat = 1.0) {
         
+        translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplier).isActive = true
     }
